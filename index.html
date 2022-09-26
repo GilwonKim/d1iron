@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="favicon" href="./favicon.ico" type="image/x-icon" sizes="16x16">
+    <title>디원도감</title>
+
+</head>
+
+<body>
+    <div>
+        <font size="7">⚡디원도감⚡</font> <br><br> 🚩'스타트' 버튼을 누르고 5초를 천천히 셉니다. 🚦 웹캠 팝업이 켜지면 '허용'을 눌러주세요. 🤳 카메라가
+        켜지면 상품을 비춰보세요!
+    </div>
+
+
+    <button type="button" onclick="init()">💚스타트💙</button>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+    <table id="chart"></table>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script src="JsBarcode.all.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        //자바로 테이블 만드는 코드
+        async function unit(first, second) {
+            var type = ['낱개', '박스'];
+            var unit = [first, second];
+            var text = document.getElementById('chart');
+            var table =
+                '<table><thead><tr><th>구성</th><th>규격</th><th>바코드</th><th>박스히어로</th><th>주의사항</th></tr></thead><tbody>';
+
+            for (var i = 0; i < type.length; i++) {
+                table += '<tr><td>' + type[i] + '</td><td>' + unit[i] + '</td></tr>';
+            }
+
+            table += '</tbody></table>';
+            text.innerHTML = table;
+        }
+        // unit("123123","123123")
+
+        async function barcode(barcode1, barcode2) {
+            var x = document.getElementById("chart").rows[1].insertCell(2);
+            var bar = document.createElement('img');
+            bar.id = 'barcode1'
+            x.appendChild(bar);
+            JsBarcode("#barcode1", barcode1);
+
+            var x = document.getElementById("chart").rows[2].insertCell(2);
+            var bar = document.createElement('img');
+            bar.id = 'barcode2'
+            x.appendChild(bar);
+            JsBarcode("#barcode2", barcode2);
+        }
+        // barcode("123456789123456", "123123132131231311212122132132")
+
+        async function photo(photo1, photo2) {
+            var y = document.getElementById("chart").rows[1].insertCell(3);
+            var pho = document.createElement('img');
+            pho.src = photo1;
+            y.appendChild(pho);
+
+            var y = document.getElementById("chart").rows[2].insertCell(3);
+            var pho = document.createElement('img');
+            pho.src = photo2;
+            y.appendChild(pho);
+        }
+
+        async function warning(warn1, warn2) {
+            var y = document.getElementById("chart").rows[1].insertCell(4);
+            y.innerHTML = warn1;
+
+            var y = document.getElementById("chart").rows[2].insertCell(4);
+            y.innerHTML = warn2;
+        }
+
+        //자바로 테이블 만드는 코드 끝
+
+
+
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "./my_model/";
+
+        let model, webcam, labelContainer, maxPredictions;
+
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            // Convenience function to setup a webcam
+            const flip = false; // whether to flip the webcam
+            webcam = new tmImage.Webcam(350, 340, flip); // width, height, flip
+            await webcam.setup({ facingMode: "environment" }); // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            // append elements to the DOM
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+
+        async function waitFor(milliseconds) {
+            return new Promise((resolve, _) => {
+                setTimeout(() => {
+                    resolve(true);
+                }, milliseconds);
+            });
+        }
+
+        // run the webcam image through the image model
+        async function predict() {
+            const prediction = await model.predict(webcam.canvas);
+            console.log(labelContainer)
+            if (prediction[0].className == "01111" && prediction[0].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01111 / 칸튜브 (10x75mm) => 12x75mm도 있으니 꼭 확인 필요"
+                unit("250's", "4개/박스")
+                barcode("M011110000003", "B011110010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/29562547-b95b-4c66-b5de-fb7da0b9e1b4")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[1].className == "01112" && prediction[1].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01112 / 칸튜브 (12x75mm) => 10x75mm도 있으니 출고 전 확인 바랍니다. 분당제열병원 전용"
+                unit("250's", "4개/박스")
+                barcode("M011120000003", "B011120010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/81480ef2-8518-4e5f-839d-647338daa65e")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[2].className == "01713" && prediction[2].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01713 / 57x10 페이퍼. 위 표면에는 57x30이라고 써 있을 의심치 말고 57x10임!"
+                unit("10롤/box")
+                barcode("M017130000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/a9bf3966-1266-4a2a-9f9c-dc46fd98149f")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[3].className == "00020" && prediction[3].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00020 / 3M-micropre(25x9.1m) => 화이트라고 써있음"
+                unit("12롤/box")
+                barcode("8801230603861")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/593e2317-8f36-4386-87a8-9348a3e00cb0")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[4].className == "00022" && prediction[4].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00022 / 3M-Skintone(25x9.1m) => 살색이라서 스킨톤임"
+                unit("12롤/box")
+                barcode("8801230603892")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/037eb075-a6db-447c-83f3-9931edac4264")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[5].className == "00024" && prediction[5].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00024 / 3M-Soft Cloth Tape(중)"
+                unit("7.5cmx10m")
+                barcode("8801230603991")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/50c8072c-7d64-4274-97b4-4e12cf635ff8")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[6].className == "00025" && prediction[6].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00025 / 3M-Transpore(25x9.1m) => 12개/box"
+                unit("12개/box")
+                barcode("8801230603915")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/ea692320-3e05-404f-a18c-1798e5356359")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[7].className == "00124" && prediction[7].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[S0].innerHTML = classPrediction = "코드: 000124 / 목면봉 => 솜면봉이랑 헷갈리지 말 것! 채혈 튜브 안에 이물질을 제거하는 데 사용한다."
+                unit("200's,20개/박스")
+                barcode("M001240000002", "B001240010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/15498345-2c91-404a-8fc2-daaa1ca8ba3c")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[8].className == "00125" && prediction[8].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 000125 / 솜면봉 => 목면봉과 헷갈리지 말 것!"
+                unit("100's,20개/박스")
+                barcode("M001250000002", "B001250010227")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/0a51b443-672d-4aab-a956-7caaa86c9650")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[9].className == "00359" && prediction[9].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00359 / Brush(대) / 브러쉬 길이에 따라 대/중/소로 구성되어 있으니 박스히어로를 참고하여 길이를 확인할 것!"
+                unit("EA")
+                barcode("M003590000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3607f6c5-3304-4a38-ab0a-ab642832d14f")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[10].className == "00360" && prediction[10].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00360 / Brush(소) / 브러쉬 길이에 따라 대/중/소로 구성되어 있으니 박스히어로를 참고하여 길이를 확인할 것!"
+                unit("EA")
+                barcode("M003600000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3607f6c5-3304-4a38-ab0a-ab642832d14f")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[11].className == "00361" && prediction[11].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00361 / Brush(중) / 브러쉬 길이에 따라 대/중/소로 구성되어 있으니 박스히어로를 참고하여 길이를 확인할 것!"
+                unit("EA")
+                barcode("M003610000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3607f6c5-3304-4a38-ab0a-ab642832d14f")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[12].className == "00375" && prediction[12].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00375 / Capillary Seal Ease / 모세혈 튜브를 막는 역할을 한다. 구멍을 막는 찰흙 같음"
+                unit("10's")
+                barcode("M003750000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/b3994ab6-2cb7-4d45-908b-f61cda8c3c6e")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[13].className == "00405" && prediction[13].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00405 / CBC Bottle (2K EDTA-외캡) => 용인서울에서만 사용하는듯?"
+                unit("100T, 10개/박스")
+                barcode("M004050000002", "B004050010231")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/1e60e4d4-1afe-467a-b125-5002d4613c7a", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/bf291170-6a55-4e57-bdbf-9f9faf430504")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[14].className == "00548" && prediction[14].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00548 / DASLab-Blue Tip / 100-1000ul용 블루팁. 바코드를 찍으세요!"
+                unit("1000's", "12개/박스")
+                barcode("08435394200293", "B005480010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/09575b96-7138-44ad-9a5d-e6e828212679")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[15].className == "00550" && prediction[15].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00550 /\"DASLab-Yellow Tip\" \n줄바꿈? 바코드를 꼭 찍으세요. 길슨 Yellow Tip과 헷갈릴 수있다. 길슨 타입은 윗에 꽂는 길이가 더 길다"
+                unit("1000's", "40개/박스")
+                barcode("08435394200163", "8435394213637")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/6fdd12d1-c170-4626-ba9c-0e02ec9881d4")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[16].className == "00551" && prediction[16].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00551 / DASLab-Yellow Tip(길슨) \n 바코드를 꼭 찍으세요 / 길슨 Yellow Tip과 헷갈릴 수있다. 길슨 타입은 윗에 꽂는 길이가 더 길다"
+                unit("1000's", "40/박스")
+                barcode("08435394200194", "845394212555")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/5cf8dfd7-3007-4cbc-9595-7feab5c859f2")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[17].className == "00664" && prediction[17].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00664 / EKG 페이퍼 현재 없음"
+                await waitFor(3000)
+
+            } else if (prediction[18].className == "00668" && prediction[18].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00668 / EKG 페이퍼 (216x30)"
+                unit("1롤", "10/박스")
+                barcode("M006680000002", "B006680010234")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/044b8493-75f9-433e-bfcd-ffdbca4578b8")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[19].className == "00669" && prediction[19].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드 00669 / 현재 없음"
+                await waitFor(3000)
+
+            } else if (prediction[20].className == "00808" && prediction[20].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00808 / Ethyl Alcohol 99.9% (에틸 알코올 99.9%)"
+                unit("1L")
+                barcode("M008080000002")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9a37deb8-7aab-4b71-a471-65e8fa5d3210")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[21].className == "00827" && prediction[21].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00827 / Filter Paper(11cm)"
+                unit("EA")
+                barcode("M008270000001")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/b1858a32-019c-44b1-9641-a1ef0da0d45b")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[22].className == "00829" && prediction[22].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00829 / Finntip 62 (1-5ml)"
+                unit("100's")
+                barcode("M008290000003")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/1f669ff4-38aa-4088-91e2-c71149f960b6")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[23].className == "00888" && prediction[23].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00888 / Glass Test Tube (13x100mm)"
+                unit("200EA/box")
+                barcode("M008880000003")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/fcd0635d-3068-41ba-8faa-66dafeb84f5f")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[24].className == "01215" && prediction[24].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01215 / Lens Wipe (4x6in/50s)"
+                unit("EA")
+                barcode("817807000061")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/13a2f6d6-8b3c-4144-bda7-7122ca92f536")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[25].className == "01340" && prediction[25].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01340 / Moa-지혈밴드 (20mm)"
+                unit("100's/roll", "20개/박스")
+                barcode("M013400000003", "B013400010237")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/103d48f2-6a73-4c72-891a-935a0378cdcf")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[26].className == "01341" && prediction[26].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01341 / Moa-지혈밴드 (35mm)"
+                unit("200's/roll", "10/박스")
+                barcode("M013410000003", "B013410010238")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d3cdea47-8bfb-4aad-b5ee-c1654ce79fd0")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[27].className == "01344" && prediction[27].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01344 / Mouthpiece 7호 (28x30x70)"
+                unit("100's")
+                barcode("M013440000003")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/f734b9e3-cda0-4a37-b01d-695c49527e0a")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[28].className == "01425" && prediction[28].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01425 / Parafilm (M roll / 4in x 125ft)"
+                unit("EA")
+                barcode("M014250000003")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/aafd951e-21f4-48fb-837c-4c0e369b528b")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[29].className == "01454" && prediction[29].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01454 / 폴리글러브"
+                unit("200's", "10개/박스")
+                barcode("M0145540000003", "B014540010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3d8bec0d-fd0a-492e-b7fa-3c898addff5e")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[30].className == "01762" && prediction[30].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01762 / PVC 소변컵 (Urine Cup)"
+                unit("EA", "500개/박스")
+                barcode("M01620000003", "B017620010249")
+                photo("", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4aa06b19-b0d5-4cc2-a724-1543b11fedb3")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[31].className == "01483" && prediction[31].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01483 / RatioLab-Yellow Tip"
+                unit("1000's", "10개/박스")
+                barcode("M014830000004", "B014830010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/fd2f17a0-e382-47af-ad81-d5fe3a4bf0e7")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[32].className == "01531" && prediction[32].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01529 / Sample Cup 2.0mm"
+                unit("1000EA", "10개/박스")
+                barcode("M015310000004", "B015310010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4eb62db2-497e-4381-a91e-07d37ff0dbd5")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[33].className == "01528" && prediction[33].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01528 / Slide(No Name-7101"
+                unit("50's", "50개/박스")
+                barcode("M015280000004", "B015280010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/86ccba4a-eb5e-4848-925a-8e6e723194fc")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[34].className == "01685" && prediction[34].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01685 / Steel Tube Rack (5부/100홀)"
+                unit("EA")
+                barcode("M016850000004")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4d2961eb-20d5-4214-af0b-a94c0c4fbffc")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+            } else if (prediction[35].className == "01686" && prediction[35].probability.toFixed(2) == 1.00) {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01686 / Steel Tube Rack (5부/50홀)"
+                unit("EA", "30개/박스")
+                barcode("M016860000004", "B016860010226")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/38f77828-9a52-4e25-8cdd-8c8446747b85")
+                warning(1234,"dsfsdf")
+                await waitFor(3000)
+
+
+            } else {
+                labelContainer.childNodes[0].innerHTML = classPrediction = "라벨 또는 특징이 있는 면을 보여주세요"
+
+
+            }
+            // predict can take in an image, video or canvas html element
+            // const prediction = await model.predict(webcam.canvas);
+            // for (let i = 0; i < maxPredictions; i++) {
+            //     const classPrediction =
+            //         prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            //     labelContainer.childNodes[i].innerHTML = classPrediction;
+
+        }
+    </script>
+
+
+</body>
+
+</html>
