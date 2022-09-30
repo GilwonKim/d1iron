@@ -62,7 +62,7 @@
             x.appendChild(bar);
             JsBarcode("#barcode2", barcode2);
         }
-        // barcode("123456789123456", "123123132131231311212122132132")
+        barcode("123456789123456", "123123132131231311212122132132")
 
         async function photo(photo1, photo2) {
             var y = document.getElementById("chart").rows[2].insertCell(3);
@@ -85,7 +85,7 @@
         }
 
         async function product(name) {
-            var z = document.getElementById("chart").rows[1].insertCell(2);
+            var z = document.getElementById("chart").rows[1].insertCell(1);
             z.innerHTML = name;
         }
         product("나는 제목입니다")
@@ -149,418 +149,469 @@
             console.log(labelContainer)
             if (prediction[0].className == "01111" && prediction[0].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01111 / 칸튜브 (10x75mm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("250's", "4개/박스")
                 barcode("M011110000003", "B011110010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/29562547-b95b-4c66-b5de-fb7da0b9e1b4")
                 warning("12mm 상품과 혼동 주의, 유리 파손 주의")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[1].className == "01112" && prediction[1].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01112 / 칸튜브 (12x75mm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("250's", "4개/박스")
                 barcode("M011120000003", "B011120010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/81480ef2-8518-4e5f-839d-647338daa65e")
                 warning("10mm 상품과 혼동 주의, 유리 파손 주의")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[2].className == "01713" && prediction[2].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01713 / 57x10 페이퍼"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10롤/box")
                 barcode("M017130000002")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/a9bf3966-1266-4a2a-9f9c-dc46fd98149f")
                 warning("흰 박스안에 40롤. 수량주의!", "빨간색으로 57x10이라고 써 있으면 오케이")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[3].className == "00124" && prediction[3].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00124 / 목면봉"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200's,20개/박스")
                 barcode("M001240000002", "B001240010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/15498345-2c91-404a-8fc2-daaa1ca8ba3c")
                 warning("다른 브랜드 목면봉도 있긴한데 상관없이 입출고해도 괜찮음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[4].className == "00125" && prediction[4].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00125/ 솜면봉"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's,20개/박스")
                 barcode("M001250000002", "B001250010227")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/0a51b443-672d-4aab-a956-7caaa86c9650")
                 warning("목면봉과 헷갈리지 말 것!")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[5].className == "00359" && prediction[5].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00359 / Brush(대)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M003590000002")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3607f6c5-3304-4a38-ab0a-ab642832d14f")
                 warning("브러쉬 사이즈 3종 (대,중,소) 길이(cm)로 나뉘니 박스히어로 사진을 꼭 참고할 것")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[6].className == "00375" && prediction[6].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00375 / Capillary Seal Ease"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10's")
                 barcode("M003750000002")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/b3994ab6-2cb7-4d45-908b-f61cda8c3c6e")
                 warning("모세혈 튜브를 막는 역할을 한다. 구멍을 막는 찰흙 같음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[7].className == "00405" && prediction[7].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00405 / CBC Bottle (2K EDTA-외캡)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100T, 10개/박스")
                 barcode("M004050000002", "B004050010231")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/1e60e4d4-1afe-467a-b125-5002d4613c7a", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/bf291170-6a55-4e57-bdbf-9f9faf430504")
                 warning("용인서울에서만 사용하는듯")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[8].className == "00664" && prediction[8].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00664 / EKG 페이퍼 현재 없음"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("1롤", "10/박스")
                 barcode("M006680000002", "B006680010234")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d9615bae-cfae-4fd9-80e4-0e8fa597f523")
                 warning("1박스에 10롤입니다")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[9].className == "00668" && prediction[9].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00668 / EKG 페이퍼 (216x30)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("1롤", "10/박스")
                 barcode("M006680000002", "B006680010234")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/044b8493-75f9-433e-bfcd-ffdbca4578b8","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/c95744ba-546a-480c-8007-be9c7ec06d2b")
                 warning("1박스에 10롤입니다")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[10].className == "00808" && prediction[10].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00808 / Ethyl Alcohol 99.9% (에틸 알코올 99.9%)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("1L")
                 barcode("M008080000002")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9a37deb8-7aab-4b71-a471-65e8fa5d3210")
                 warning("코드: 00807 에탄올 83% 4리터 제품과 혼동 할 수 있음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[11].className == "00827" && prediction[11].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00827 / Filter Paper(11cm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M008270000001")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/b1858a32-019c-44b1-9641-a1ef0da0d45b")
                 warning("없음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[12].className == "00829" && prediction[12].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00829 / Finntip 62 (1-5ml)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's")
                 barcode("M008290000003")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/1f669ff4-38aa-4088-91e2-c71149f960b6")
                 warning("좀 더 큰 파이펫팁 5ml 파이펫 전용")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[13].className == "00888" && prediction[13].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00888 / Glass Test Tube (13x100mm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200EA/box")
                 barcode("M008880000003")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/fcd0635d-3068-41ba-8faa-66dafeb84f5f")
                 warning("내용물 유리 =?  파손 주의")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[14].className == "01215" && prediction[14].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01215 / Lens Wipe (4x6in/50s)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("817807000061")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/13a2f6d6-8b3c-4144-bda7-7122ca92f536")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[15].className == "01340" && prediction[15].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01340 / Moa-지혈밴드 (20mm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's/roll", "20개/박스")
                 barcode("M013400000003", "B013400010237")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/103d48f2-6a73-4c72-891a-935a0378cdcf","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3f677392-9c41-4847-832c-06322932d0f0")
                 warning("1박스에 20개 수량 확인 꼭 할 것!")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[16].className == "01341" && prediction[16].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01341 / Moa-지혈밴드 (35mm)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200's/roll", "10/박스")
                 barcode("M013410000003", "B013410010238")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d3cdea47-8bfb-4aad-b5ee-c1654ce79fd0","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/64014a96-19ce-49fa-a2d4-8d67f95b0e58")
                 warning("1박스에 10개 수량 확인 꼭 할 것!")
+                product(labelContainer.childNodes[0].innerHTML)
+            
                 await waitFor(3000)
             } else if (prediction[17].className == "01344" && prediction[17].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01344 / Mouthpiece 7호 (28x30x70)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's")
                 barcode("M013440000003")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/f734b9e3-cda0-4a37-b01d-695c49527e0a")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[18].className == "01425" && prediction[18].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01425 / Parafilm (M roll / 4in x 125ft)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M014250000003")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/aafd951e-21f4-48fb-837c-4c0e369b528b")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[19].className == "01454" && prediction[19].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01454 / 폴리글러브"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200's", "10개/박스")
                 barcode("M014540000003", "B014540010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3d8bec0d-fd0a-492e-b7fa-3c898addff5e")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[20].className == "01762" && prediction[20].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01762 / PVC 소변컵 (Urine Cup)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA", "500개/박스")
                 barcode("M017620000003", "B017620010249")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/8ae7e1ae-5ad7-4241-bd77-8bd654a88f00", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4aa06b19-b0d5-4cc2-a724-1543b11fedb3")
                 warning("컵 개당 수량 1개. 박스 당 500개(25개x20줄")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[21].className == "01483" && prediction[21].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01483 / RatioLab-Yellow Tip"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("1000's", "10개/박스")
                 barcode("M014830000004", "B014830010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/fd2f17a0-e382-47af-ad81-d5fe3a4bf0e7")
                 warning("비닐 안에 들어있는 옐로우팁과 브랜드가 다름")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[22].className == "01531" && prediction[22].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01529 / Sample Cup 2.0mm"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("1000EA", "10개/박스")
                 barcode("M015310000004", "B015310010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4eb62db2-497e-4381-a91e-07d37ff0dbd5")
                 warning("컵 1개가 수량 1개. 박스당 500개입(25x20줄)","3ml는")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[23].className == "01528" && prediction[23].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01528 / Slide(No Name-7101)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("50's", "50개/박스")
                 barcode("M015280000004", "B015280010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/86ccba4a-eb5e-4848-925a-8e6e723194fc")
                 warning("상품 옆면이 빨간색이 맞습니까?")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[24].className == "01685" && prediction[24].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01685 / Steel Tube Rack (5부/100홀)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M016850000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4d2961eb-20d5-4214-af0b-a94c0c4fbffc")
                 warning("없음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[25].className == "01686" && prediction[25].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01686 / Steel Tube Rack (5부/50홀)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA", "30개/박스")
                 barcode("M016860000004", "B016860010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/38f77828-9a52-4e25-8cdd-8c8446747b85")
                 warning("없음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[26].className == "01617" && prediction[26].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01617 / Slide (Name-7105)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("50EA", "30개/박스")
                 barcode("M016170000004", "B016170010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3ee708dd-5371-4350-837e-d5511f13f085")
                 warning("빨간색 현미경 글라스와 헷갈리지 말 것. 거의 안 나가기는 함")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[27].className == "01688" && prediction[27].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01688 / Stool Box (PVC)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA", "50개/박스")
                 barcode("M016880000004", "B016880010244")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d7879291-4985-40ef-b88c-d1cde342dcb1","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[28].className == "01711" && prediction[28].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01711 / Thermal Paper (110x30)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10롤/박스")
                 barcode("M017110000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/773b1e0b-8991-45bf-9157-2b6b65abf5dc")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[29].className == "01712" && prediction[29].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01712 / Thermal Paper (50x30)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10롤/박스")
                 barcode("M017120000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/0fb0e98c-018f-4e65-b949-8761565966d2")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[30].className == "01714" && prediction[30].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01714 / Thermal Paper (57x30)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10롤/박스")
                 barcode("M017140000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9bf83fab-abe6-456e-ae3b-75c67495a5c4")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[31].className == "01720" && prediction[31].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01720 / Thermal Paper (80x45)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("10롤/박스")
                 barcode("M017140000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/30eadd41-5a46-48cc-807b-cbc75c0c17d4")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[32].className == "01731" && prediction[32].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01731 / Tip Rack (Blue)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M017310000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/6db56b17-6cd6-4dc0-b4a9-ae1d4e7de74c")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[33].className == "01732" && prediction[33].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01732 / Tip Rack (Yellow)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M017320000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/0a0cf213-04e1-4939-b65d-da0d00672bbf")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[34].className == "01866" && prediction[34].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01866 / Washing Bottle (500ml)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M018660000004")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/869da18e-5bd8-4336-b019-5c9dc46775d7")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[35].className == "01917" && prediction[35].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01917 / 고속원심관"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("500's")
                 barcode("M019170000005")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/85221c67-f565-4218-be59-8612e0637615")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[36].className == "01951" && prediction[36].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01951 / 멸균 Specimen Cup-B"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("5EA", "50개/박스")
                 barcode("M019510000006", "B019510010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/0e90b044-01b3-4845-8926-0200df5907c6")
                 warning("1줄(5개입)이 수량 1개")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[37].className == "02139" && prediction[37].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02139 / 세원-Test Tube (10ml)-CAP"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's", "10개/박스")
                 barcode("M021390000007", "B021390010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/5b0d34e2-ca4d-4a62-b149-8de2eb4eb93d")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[38].className == "01972" && prediction[38].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01972 / 세원-Test Tube(5ml)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("250's", "8개/박스")
                 barcode("M019720000008", "B019720010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/c212b481-c4cb-4268-b201-82dc8515a12a")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[39].className == "01973" && prediction[39].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01973 / 세원-원심관(Centrifuge Tube)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200's", "10개/박스")
                 barcode("M019730000008", "B019730010252")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/6311df4f-16f0-4892-88b2-81f77c3fa272")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[40].className == "01974" && prediction[40].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01974 / 세원-혈청분리관(Serum Separator)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("250's", "8개/박스")
                 barcode("M019740000008", "B019740010253")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/2cfc3691-44b4-4eae-aac6-2628734b64e5")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[41].className == "01975" && prediction[41].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01975 / 세원-혈청피펫(Serum Pipette)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("500's", "6개/박스")
                 barcode("M019740000008", "B019750010254")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/c6a2b7d3-8134-421d-85f0-9f9ece41d27e")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[42].className == "02045" && prediction[42].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02045 / 소변컵 캡 (Urine Cup Cap)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("100's", "20개/박스")
                 barcode("M020450000008", "B020450010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/fc914e84-07e4-4736-bb86-fa79d487f38f")
                 warning("1줄(100개입)이 수량 1개")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[43].className == "00807" && prediction[43].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00807 / 에탄올(Ethanol) 83% (4L)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA", "4개/박스")
                 barcode("8809664930126", "B008070010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/e94d5f5a-4d7e-4776-a5a5-d4934f45ef60")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[44].className == "02218" && prediction[44].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02218 / 와이지-Dropper"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("200's", "60개/박스")
                 barcode("M022180000008", "B022180010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/79d23c09-dc25-451a-a875-17deb96e7cfd")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[45].className == "02031" && prediction[45].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02031 / 접이식 EKG Paper (210x3x140)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA", "20개/박스")
                 barcode("M020310000009", "B020310010256")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/734253df-d586-42a8-a1c3-9908abcaacda")
                 warning("동그라미 X, 네모 O")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[46].className == "01763" && prediction[46].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01763 / 종이 소변컵 (Urine Cup)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("50개/줄", "20개/박스")
                 barcode("M017630000009", "B017630010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9d98f2e8-bfad-4a9f-b4d8-d42c17efd9a5","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/52c5e3af-b5d2-462b-9193-e2462f4dcfd0")
                 warning("1줄(50개입)이 수량 1개")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[47].className == "02056" && prediction[47].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02056 / 채혈베개 (소)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M020560000009")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/b563fd13-a2dd-478f-9668-23d1c40bcb02")
                 warning("사이즈는 소/대로 구성되어 있음")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[48].className == "02127" && prediction[48].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 02127 / 혈액형판 (흰색)"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("EA")
                 barcode("M021270000009")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/e1af7877-062d-4f3c-8967-69ef5d4d11c7")
                 warning("")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[49].className == "01285" && prediction[49].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01285 / ClinChem Control N"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("5ml", "10개/박스")
                 barcode("6944904091822", "B012850010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d817cb12-74ca-4bae-9836-fd59914f1276","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/8b9d8a5a-3549-4cd7-9443-c614c108cb42")
                 warning("1 vial(5ml)이 수량 1개임")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
             } else if (prediction[50].className == "01286" && prediction[50].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01286 / ClinChem Control P"
-                product(labelContainer.childNodes[0].innerHTML)
                 unit("5ml", "10개/박스")
                 barcode("6944904091830", "B012860010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/a5b9b26b-7752-4837-9b51-2267c9959fe2","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/e94cbb0c-e5ec-41a6-ae5a-86f43d1ec3e0")
                 warning("1 vial(5ml)이 수량 1개임")
+                product(labelContainer.childNodes[0].innerHTML)
+
                 await waitFor(3000)
 
 
 
 
             } else {
-                labelContainer.childNodes[0].innerHTML = classPrediction = "라벨 또는 특징이 있는 면을 보여주세요"
+                labelContainer.childNodes[0].innerHTML = classPrediction = "라벨(또는 두드러진 특징)을 보여주세요"
 
 
             }
