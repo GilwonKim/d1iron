@@ -13,12 +13,12 @@
 
 <body>
     <div>
-        <font size="7">⚡디원도감⚡</font> <br><br> 🚩'스타트' 버튼을 누르고 5초를 천천히 셉니다. 🚦 웹캠 팝업이 켜지면 '허용'을 눌러주세요. 🤳 카메라가
+        <font size="7">⚡디원도감⚡</font> <br><br> 📣'START' 버튼을 누르고 5초를 천천히 셉니다. 🚦 웹캠 팝업이 켜지면 '허용'을 눌러주세요. 🤳 카메라가
         켜지면 상품을 비춰보세요!
     </div>
 
 
-    <button type="button" onclick="init()">💚스타트💙</button>
+    <button type="button" onclick="init()">🔎 START 💡</button>
     <div id="webcam-container"></div>
     <div id="label-container"></div>
     <table id="chart"></table>
@@ -33,21 +33,19 @@
 
         //자바로 테이블 만드는 코드
         async function unit(first, second) {
-            var type = ['상품명', '낱개 바코드', '박스 바코드'];
-            var unit = ["", first, second];
+            var type = ['낱개 바코드', '박스 바코드'];
+            var unit = [first, second];
 
             var text = document.getElementById('chart');
             var table =
-                '<table><thead><tr><th>구성</th><th>규격</th><th>바코드</th><th>박스히어로</th><th>주의사항</th></tr></thead><tbody>';
-
+                '<table><thead><tr><th>구성</th><th>규격</th><th>바코드</th><th>박스히어로</th><th>주의사항</th></tr></thead><tr></tr><tbody>';
             for (var i = 0; i < type.length; i++) {
                 table += '<tr><td>' + type[i] + '</td><td>' + unit[i] + '</td></tr>';
             }
-
             table += '</tbody></table>';
             text.innerHTML = table;
         }
-        unit("123123", "123123")
+        // unit("12345", "67890")
 
         async function barcode(barcode1, barcode2) {
             var x = document.getElementById("chart").rows[2].insertCell(2);
@@ -62,7 +60,7 @@
             x.appendChild(bar);
             JsBarcode("#barcode2", barcode2);
         }
-        barcode("123456789123456", "123123132131231311212122132132")
+        // barcode("0317078765", "0317092240")
 
         async function photo(photo1, photo2) {
             var y = document.getElementById("chart").rows[2].insertCell(3);
@@ -85,10 +83,11 @@
         }
 
         async function product(name) {
-            var z = document.getElementById("chart").rows[1].insertCell(1);
+            var z = document.getElementById("chart").rows[1].insertCell(0);
             z.innerHTML = name;
+            z.colSpan = "5"
         }
-        product("나는 제목입니다")
+        // product("상품 제목 위치입니다")
 
         //자바로 테이블 만드는 코드 끝
 
@@ -232,7 +231,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 00668 / EKG 페이퍼 (216x30)"
                 unit("1롤", "10/박스")
                 barcode("M006680000002", "B006680010234")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/044b8493-75f9-433e-bfcd-ffdbca4578b8","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/c95744ba-546a-480c-8007-be9c7ec06d2b")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/044b8493-75f9-433e-bfcd-ffdbca4578b8", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/c95744ba-546a-480c-8007-be9c7ec06d2b")
                 warning("1박스에 10롤입니다")
                 product(labelContainer.childNodes[0].innerHTML)
 
@@ -242,7 +241,7 @@
                 unit("1L")
                 barcode("M008080000002")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9a37deb8-7aab-4b71-a471-65e8fa5d3210")
-                warning("코드: 00807 에탄올 83% 4리터 제품과 혼동 할 수 있음")
+                warning("에탄올 83% 4리터 제품과 혼동 할 수 있음")
                 product(labelContainer.childNodes[0].innerHTML)
 
                 await waitFor(3000)
@@ -286,7 +285,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01340 / Moa-지혈밴드 (20mm)"
                 unit("100's/roll", "20개/박스")
                 barcode("M013400000003", "B013400010237")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/103d48f2-6a73-4c72-891a-935a0378cdcf","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3f677392-9c41-4847-832c-06322932d0f0")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/103d48f2-6a73-4c72-891a-935a0378cdcf", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/3f677392-9c41-4847-832c-06322932d0f0")
                 warning("1박스에 20개 수량 확인 꼭 할 것!")
                 product(labelContainer.childNodes[0].innerHTML)
 
@@ -295,10 +294,10 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01341 / Moa-지혈밴드 (35mm)"
                 unit("200's/roll", "10/박스")
                 barcode("M013410000003", "B013410010238")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d3cdea47-8bfb-4aad-b5ee-c1654ce79fd0","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/64014a96-19ce-49fa-a2d4-8d67f95b0e58")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d3cdea47-8bfb-4aad-b5ee-c1654ce79fd0", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/64014a96-19ce-49fa-a2d4-8d67f95b0e58")
                 warning("1박스에 10개 수량 확인 꼭 할 것!")
                 product(labelContainer.childNodes[0].innerHTML)
-            
+
                 await waitFor(3000)
             } else if (prediction[17].className == "01344" && prediction[17].probability.toFixed(2) == 1.00) {
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01344 / Mouthpiece 7호 (28x30x70)"
@@ -350,7 +349,7 @@
                 unit("1000EA", "10개/박스")
                 barcode("M015310000004", "B015310010226")
                 photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/4eb62db2-497e-4381-a91e-07d37ff0dbd5")
-                warning("컵 1개가 수량 1개. 박스당 500개입(25x20줄)","3ml는")
+                warning("컵 1개가 수량 1개. 박스당 500개입(25x20줄)", "3ml는")
                 product(labelContainer.childNodes[0].innerHTML)
 
                 await waitFor(3000)
@@ -394,7 +393,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01688 / Stool Box (PVC)"
                 unit("EA", "50개/박스")
                 barcode("M016880000004", "B016880010244")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d7879291-4985-40ef-b88c-d1cde342dcb1","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d7879291-4985-40ef-b88c-d1cde342dcb1", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/516252fa-e4c3-4917-8f64-c1a4f2470d6b")
                 warning("")
                 product(labelContainer.childNodes[0].innerHTML)
 
@@ -565,7 +564,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01763 / 종이 소변컵 (Urine Cup)"
                 unit("50개/줄", "20개/박스")
                 barcode("M017630000009", "B017630010226")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9d98f2e8-bfad-4a9f-b4d8-d42c17efd9a5","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/52c5e3af-b5d2-462b-9193-e2462f4dcfd0")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/9d98f2e8-bfad-4a9f-b4d8-d42c17efd9a5", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/52c5e3af-b5d2-462b-9193-e2462f4dcfd0")
                 warning("1줄(50개입)이 수량 1개")
                 product(labelContainer.childNodes[0].innerHTML)
 
@@ -592,7 +591,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01285 / ClinChem Control N"
                 unit("5ml", "10개/박스")
                 barcode("6944904091822", "B012850010226")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d817cb12-74ca-4bae-9836-fd59914f1276","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/8b9d8a5a-3549-4cd7-9443-c614c108cb42")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/d817cb12-74ca-4bae-9836-fd59914f1276", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/8b9d8a5a-3549-4cd7-9443-c614c108cb42")
                 warning("1 vial(5ml)이 수량 1개임")
                 product(labelContainer.childNodes[0].innerHTML)
 
@@ -601,7 +600,7 @@
                 labelContainer.childNodes[0].innerHTML = classPrediction = "코드: 01286 / ClinChem Control P"
                 unit("5ml", "10개/박스")
                 barcode("6944904091830", "B012860010226")
-                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/a5b9b26b-7752-4837-9b51-2267c9959fe2","https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/e94cbb0c-e5ec-41a6-ae5a-86f43d1ec3e0")
+                photo("https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/a5b9b26b-7752-4837-9b51-2267c9959fe2", "https://d3l9wd8kivvlqy.cloudfront.net/ap-northeast-2/image-up-ap-northeast-2/e94cbb0c-e5ec-41a6-ae5a-86f43d1ec3e0")
                 warning("1 vial(5ml)이 수량 1개임")
                 product(labelContainer.childNodes[0].innerHTML)
 
